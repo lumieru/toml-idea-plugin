@@ -41,6 +41,9 @@ public class TomlParser implements PsiParser, LightPsiParser {
     else if (t == PATH) {
       r = path(b, 0);
     }
+    else if (t == SQMCHARSTR) {
+      r = sqmcharstr(b, 0);
+    }
     else if (t == STRING) {
       r = string(b, 0);
     }
@@ -275,12 +278,39 @@ public class TomlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // dqmstring | sqmstring | dqsstring | sqsstring
+  // sqmstrquoter sqmchar * sqmstrquoter
+  public static boolean sqmcharstr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sqmcharstr")) return false;
+    if (!nextTokenIs(b, SQMSTRQUOTER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, SQMSTRQUOTER);
+    r = r && sqmcharstr_1(b, l + 1);
+    r = r && consumeToken(b, SQMSTRQUOTER);
+    exit_section_(b, m, SQMCHARSTR, r);
+    return r;
+  }
+
+  // sqmchar *
+  private static boolean sqmcharstr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sqmcharstr_1")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!consumeToken(b, SQMCHAR)) break;
+      if (!empty_element_parsed_guard_(b, "sqmcharstr_1", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // sqmcharstr | dqmstring | sqmstring | dqsstring | sqsstring
   public static boolean string(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "string")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<string>");
-    r = consumeToken(b, DQMSTRING);
+    r = sqmcharstr(b, l + 1);
+    if (!r) r = consumeToken(b, DQMSTRING);
     if (!r) r = consumeToken(b, SQMSTRING);
     if (!r) r = consumeToken(b, DQSSTRING);
     if (!r) r = consumeToken(b, SQSSTRING);

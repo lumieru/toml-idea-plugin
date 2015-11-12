@@ -24,6 +24,12 @@ public class TomlStringImpl extends ASTWrapperPsiElement implements TomlString {
 
   @Override
   @Nullable
+  public TomlSqmcharstr getSqmcharstr() {
+    return findChildByClass(TomlSqmcharstr.class);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getDqmstring() {
     return findChildByType(DQMSTRING);
   }

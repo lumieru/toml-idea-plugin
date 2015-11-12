@@ -31,6 +31,10 @@ public class TomlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitSqmcharstr(@NotNull TomlSqmcharstr o) {
+    visitPsiElement(o);
+  }
+
   public void visitString(@NotNull TomlString o) {
     visitPsiElement(o);
   }

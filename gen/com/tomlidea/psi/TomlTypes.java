@@ -14,6 +14,7 @@ public interface TomlTypes {
   IElementType KEY = new TomlElementType("KEY");
   IElementType KEY_VALUE = new TomlElementType("KEY_VALUE");
   IElementType PATH = new TomlElementType("PATH");
+  IElementType SQMCHARSTR = new TomlElementType("SQMCHARSTR");
   IElementType STRING = new TomlElementType("STRING");
   IElementType TABLE = new TomlElementType("TABLE");
   IElementType TABLE_ARRAY = new TomlElementType("TABLE_ARRAY");
@@ -36,7 +37,9 @@ public interface TomlTypes {
   IElementType NUMBER = new TomlTokenType("number");
   IElementType RBRACE = new TomlTokenType("}");
   IElementType RBRACKET = new TomlTokenType("]");
+  IElementType SQMCHAR = new TomlTokenType("sqmchar");
   IElementType SQMSTRING = new TomlTokenType("sqmstring");
+  IElementType SQMSTRQUOTER = new TomlTokenType("'''");
   IElementType SQSSTRING = new TomlTokenType("sqsstring");
 
   class Factory {
@@ -59,6 +62,9 @@ public interface TomlTypes {
       }
       else if (type == PATH) {
         return new TomlPathImpl(node);
+      }
+      else if (type == SQMCHARSTR) {
+        return new TomlSqmcharstrImpl(node);
       }
       else if (type == STRING) {
         return new TomlStringImpl(node);

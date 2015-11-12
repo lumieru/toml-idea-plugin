@@ -34,6 +34,8 @@
         rbracket=']'
         lbrace='{'
         rbrace='}'
+        sqmstrquoter="'''"
+        sqmchar="regexp:([\r\n]|.)"
       ]
 }
 
@@ -57,7 +59,9 @@ key_value ::= key '=' value
 //TODO inline_table should be on the single line
 inline_table ::= '{' (key_value (',' key_value)* ','?)? '}'
 
-string ::= dqmstring | sqmstring | dqsstring | sqsstring
+sqmcharstr ::= sqmstrquoter sqmchar * sqmstrquoter
+
+string ::= sqmcharstr | dqmstring | sqmstring | dqsstring | sqsstring
 
 value ::= string | number | boolean | date | array | inline_table
 array ::= '[' (value (',' value)* ','?)? ']'

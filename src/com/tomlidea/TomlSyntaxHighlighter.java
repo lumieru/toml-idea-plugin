@@ -64,7 +64,9 @@ public class TomlSyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (tokenType.equals(TomlTypes.DQMSTRING) ||
                 tokenType.equals(TomlTypes.DQSSTRING) ||
                 tokenType.equals(TomlTypes.SQMSTRING) ||
-                tokenType.equals(TomlTypes.SQSSTRING)) {
+                tokenType.equals(TomlTypes.SQSSTRING) ||
+                tokenType.equals(TomlTypes.SQMCHAR) ||
+                tokenType.equals(TomlTypes.SQMSTRQUOTER)) {
             return STRING_KEYS;
         } else if (tokenType.equals(TomlTypes.BOOLEAN)) {
             return BOOLEAN_KEYS;

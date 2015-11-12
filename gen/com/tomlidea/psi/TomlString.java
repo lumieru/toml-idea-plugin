@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface TomlString extends PsiElement {
 
   @Nullable
+  TomlSqmcharstr getSqmcharstr();
+
+  @Nullable
   PsiElement getDqmstring();
 
   @Nullable

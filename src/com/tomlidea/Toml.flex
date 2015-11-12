@@ -41,7 +41,7 @@ KEY=[0-9_\-a-zA-Z]+
 
   {COMMENT}             { return TomlTypes.COMMENT; }
 
-  '''                   { yybegin(SQMLSTRING); }
+  '''                   { yybegin(SQMLSTRING); return TomlTypes.SQMSTRQUOTER; }
   {MULTILINE_STRING}    { return TomlTypes.DQMSTRING; }
   {STRING}              { return TomlTypes.DQSSTRING; }
  // {MULTILINE_STRING_SQ} { return TomlTypes.SQMSTRING; }
@@ -65,6 +65,6 @@ KEY=[0-9_\-a-zA-Z]+
 }
 
 <SQMLSTRING> {
-  '''                   { yybegin(YYINITIAL); return TomlTypes.SQMSTRING; }
-  ([\r\n]|.)            { }
+  '''                   { yybegin(YYINITIAL); return TomlTypes.SQMSTRQUOTER; }
+  ([\r\n]|.)            { return TomlTypes.SQMCHAR; }
 }
