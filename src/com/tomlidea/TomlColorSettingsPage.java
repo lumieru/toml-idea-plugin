@@ -26,6 +26,8 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Number", TomlSyntaxHighlighter.NUMBER),
             new AttributesDescriptor("Comment", TomlSyntaxHighlighter.COMMENT),
             new AttributesDescriptor("Bad character", TomlSyntaxHighlighter.BAD_CHARACTER),
+            new AttributesDescriptor("Table header", TomlSyntaxHighlighter.TABLE_HEADER),
+            new AttributesDescriptor("Table array header", TomlSyntaxHighlighter.TABLE_ARRAY_HEADER),
     };
 
     @Nullable

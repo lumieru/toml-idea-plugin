@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.sensedevil.ideaplugin.toml</id>
   <name>TOML</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <vendor email="lumieru@gmail.com" url="https://github.com/lumieru/toml-idea-plugin"/>
 
   <description><![CDATA[
@@ -27,6 +27,7 @@
     <lang.parserDefinition language="toml" implementationClass="com.tomlidea.TomlParserDefinition"/>
     <lang.syntaxHighlighterFactory key="toml" implementationClass="com.tomlidea.TomlSyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="com.tomlidea.TomlColorSettingsPage"/>
+    <annotator language="toml" implementationClass="com.tomlidea.TomlAnnotator"/>
   </extensions>
 
   <actions>

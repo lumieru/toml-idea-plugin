@@ -25,6 +25,8 @@ public class TomlSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey NUMBER = createTextAttributesKey("TOML_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey COMMENT = createTextAttributesKey("TOML_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("TOML_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
+    public static final TextAttributesKey TABLE_HEADER = createTextAttributesKey("TOML_TABLE_HEADER", DefaultLanguageHighlighterColors.CLASS_NAME);
+    public static final TextAttributesKey TABLE_ARRAY_HEADER = createTextAttributesKey("TOML_TABLE_ARRAY_HEADER", DefaultLanguageHighlighterColors.CLASS_NAME);
 
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
     private static final TextAttributesKey[] DOT_KEYS = new TextAttributesKey[]{DOT};
