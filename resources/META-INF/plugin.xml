@@ -1,0 +1,36 @@
+<idea-plugin version="2">
+  <id>com.sensedevil.ideaplugin.toml</id>
+  <name>TOML</name>
+  <version>0.1.0</version>
+  <vendor email="lumieru@gmail.com" url="https://github.com/lumieru/toml-idea-plugin"/>
+
+  <description><![CDATA[
+      Support for TOML v0.4.0
+    ]]></description>
+
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+    <fileTypeFactory implementation="com.tomlidea.TomlFileTypeFactory"/>
+    <lang.parserDefinition language="toml" implementationClass="com.tomlidea.TomlParserDefinition"/>
+    <lang.syntaxHighlighterFactory key="toml" implementationClass="com.tomlidea.TomlSyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="com.tomlidea.TomlColorSettingsPage"/>
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
