@@ -12,6 +12,8 @@
   elementTypeClass="com.tomlidea.psi.TomlElementType"
   tokenTypeClass="com.tomlidea.psi.TomlTokenType"
 
+  psiImplUtilClass="com.tomlidea.psi.impl.TomlPsiImplUtil"
+
   tokens=[
         comment='regexp:#[^\n\r]*'
         //double quoted multi line string
@@ -47,10 +49,18 @@ tomlFile ::= expression *
 
 expression ::= key_value | table | table_array
 
-table ::= table_header table_entries
+table ::= table_header table_entries {
+    mixin="com.tomlidea.psi.impl.TomlNamedElementImpl"
+    implements="com.tomlidea.psi.TomlNamedElement"
+    methods=[getName setName getNameIdentifier getPresentation]
+}
 table_header ::= '[' path ']'
 
-table_array ::= table_array_header table_entries
+table_array ::= table_array_header table_entries {
+    mixin="com.tomlidea.psi.impl.TomlNamedElementImpl"
+    implements="com.tomlidea.psi.TomlNamedElement"
+    methods=[getName setName getNameIdentifier getPresentation]
+}
 table_array_header ::= '[' '[' path ']' ']'
 
 key ::= barekey | dqsstring | integer | day
@@ -58,7 +68,11 @@ key ::= barekey | dqsstring | integer | day
 path ::= key ('.' key) *
 table_entries ::= key_value *
 
-key_value ::= key '=' value
+key_value ::= key '=' value {
+   mixin="com.tomlidea.psi.impl.TomlNamedElementImpl"
+   implements="com.tomlidea.psi.TomlNamedElement"
+   methods=[getName setName getNameIdentifier getPresentation]
+}
 
 //TODO inline_table should be on the single line
 inline_table ::= '{' (key_value (',' key_value)* ','?)? '}'

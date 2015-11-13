@@ -28,7 +28,7 @@ public class TomlVisitor extends PsiElementVisitor {
   }
 
   public void visitKeyValue(@NotNull TomlKeyValue o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitNumbers(@NotNull TomlNumbers o) {
@@ -48,11 +48,11 @@ public class TomlVisitor extends PsiElementVisitor {
   }
 
   public void visitTable(@NotNull TomlTable o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitTableArray(@NotNull TomlTableArray o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitTableArrayHeader(@NotNull TomlTableArrayHeader o) {
@@ -68,6 +68,10 @@ public class TomlVisitor extends PsiElementVisitor {
   }
 
   public void visitValue(@NotNull TomlValue o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull TomlNamedElement o) {
     visitPsiElement(o);
   }
 

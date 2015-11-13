@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.tomlidea.psi.TomlTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.tomlidea.psi.*;
+import com.intellij.navigation.ItemPresentation;
 
-public class TomlTableArrayImpl extends ASTWrapperPsiElement implements TomlTableArray {
+public class TomlTableArrayImpl extends TomlNamedElementImpl implements TomlTableArray {
 
   public TomlTableArrayImpl(ASTNode node) {
     super(node);
@@ -32,6 +32,22 @@ public class TomlTableArrayImpl extends ASTWrapperPsiElement implements TomlTabl
   @NotNull
   public TomlTableEntries getTableEntries() {
     return findNotNullChildByClass(TomlTableEntries.class);
+  }
+
+  public String getName() {
+    return TomlPsiImplUtil.getName(this);
+  }
+
+  public PsiElement setName(String newName) {
+    return TomlPsiImplUtil.setName(this, newName);
+  }
+
+  public PsiElement getNameIdentifier() {
+    return TomlPsiImplUtil.getNameIdentifier(this);
+  }
+
+  public ItemPresentation getPresentation() {
+    return TomlPsiImplUtil.getPresentation(this);
   }
 
 }
