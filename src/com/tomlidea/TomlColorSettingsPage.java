@@ -5,7 +5,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import com.tomlidea.psi.TomlFile;
+import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,6 +29,12 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Table header", TomlSyntaxHighlighter.TABLE_HEADER),
             new AttributesDescriptor("Table array header", TomlSyntaxHighlighter.TABLE_ARRAY_HEADER),
     };
+
+    private static final Map<String, TextAttributesKey> ATTRIBUTES_KEY_MAP = ContainerUtil.newTroveMap();
+    static {
+        ATTRIBUTES_KEY_MAP.put("th", TomlSyntaxHighlighter.TABLE_HEADER);
+        ATTRIBUTES_KEY_MAP.put("tah", TomlSyntaxHighlighter.TABLE_ARRAY_HEADER);
+    }
 
     @Nullable
     @Override
@@ -59,14 +65,14 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# Tables (also known as hash tables or dictionaries) are collections of\n"+
         "# key/value pairs. They appear in square brackets on a line by themselves.\n"+
         "\n"+
-        "[table]\n"+
+        "[<th>table</th>]\n"+
         "\n"+
         "key = \"value\" # Yeah, you can do this.\n"+
         "\n"+
         "# Nested tables are denoted by table names with dots in them. Name your tables\n"+
         "# whatever crap you please, just don't use #, ., [ or ].\n"+
         "\n"+
-        "[table.subtable]\n"+
+        "[<th>table.subtable</th>]\n"+
         "\n"+
         "key = \"another value\"\n"+
         "\n"+
@@ -76,7 +82,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# [x] you\n"+
         "# [x.y] don't\n"+
         "# [x.y.z] need these\n"+
-        "[x.y.z.w] # for this to work\n"+
+        "[<th>x.y.z.w</th>] # for this to work\n"+
         "\n"+
         "\n"+
         "################################################################################\n"+
@@ -87,7 +93,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# Inline tables are enclosed in curly braces `{` and `}`. No newlines are\n"+
         "# allowed between the curly braces unless they are valid within a value.\n"+
         "\n"+
-        "[table.inline]\n"+
+        "[<th>table.inline</th>]\n"+
         "\n"+
         "name = { first = \"Tom\", last = \"Preston-Werner\" }\n"+
         "point = { x = 1, y = 2 }\n"+
@@ -99,11 +105,11 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# There are four ways to express strings: basic, multi-line basic, literal, and\n"+
         "# multi-line literal. All strings must contain only valid UTF-8 characters.\n"+
         "\n"+
-        "[string.basic]\n"+
+        "[<th>string.basic</th>]\n"+
         "\n"+
         "basic = \"I'm a string. \\\"You can quote me\\\". Name\\tJos\\u00E9\\nLocation\\tSF.\"\n"+
         "\n"+
-        "[string.multiline]\n"+
+        "[<th>string.multiline</th>]\n"+
         "\n"+
         "# The following strings are byte-for-byte equivalent:\n"+
         "key1 = \"One\\nTwo\"\n"+
@@ -112,7 +118,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "One\n"+
         "Two\"\"\"\n"+
         "\n"+
-        "[string.multiline.continued]\n"+
+        "[<th>string.multiline.continued</th>]\n"+
         "\n"+
         "# The following strings are byte-for-byte equivalent:\n"+
         "key1 = \"The quick brown fox jumps over the lazy dog.\"\n"+
@@ -128,7 +134,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "       the lazy dog.\\\n"+
         "       \"\"\"\n"+
         "\n"+
-        "[string.literal]\n"+
+        "[<th>string.literal</th>]\n"+
         "\n"+
         "# What you see is what you get.\n"+
         "winpath  = 'C:\\Users\\nodejs\\templates'\n"+
@@ -137,7 +143,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "regex    = '<\\i\\c*\\s*>'\n"+
         "\n"+
         "\n"+
-        "[string.literal.multiline]\n"+
+        "[<th>string.literal.multiline</th>]\n"+
         "\n"+
         "regex2 = '''I [dw]on't need \\d{2} apples'''\n"+
         "lines  = '''\n"+
@@ -154,14 +160,14 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# Integers are whole numbers. Positive numbers may be prefixed with a plus sign.\n"+
         "# Negative numbers are prefixed with a minus sign.\n"+
         "\n"+
-        "[integer]\n"+
+        "[<th>integer</th>]\n"+
         "\n"+
         "key1 = +99\n"+
         "key2 = 42\n"+
         "key3 = 0\n"+
         "key4 = -17\n"+
         "\n"+
-        "[integer.underscores]\n"+
+        "[<th>integer.underscores</th>]\n"+
         "\n"+
         "# For large numbers, you may use underscores to enhance readability. Each\n"+
         "# underscore must be surrounded by at least one digit.\n"+
@@ -176,23 +182,23 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# A float consists of an integer part (which may be prefixed with a plus or\n"+
         "# minus sign) followed by a fractional part and/or an exponent part.\n"+
         "\n"+
-        "[float.fractional]\n"+
+        "[<th>float.fractional</th>]\n"+
         "\n"+
         "key1 = +1.0\n"+
         "key2 = 3.1415\n"+
         "key3 = -0.01\n"+
         "\n"+
-        "[float.exponent]\n"+
+        "[<th>float.exponent</th>]\n"+
         "\n"+
         "key1 = 5e+22\n"+
         "key2 = 1e6\n"+
         "key3 = -2E-2\n"+
         "\n"+
-        "[float.both]\n"+
+        "[<th>float.both</th>]\n"+
         "\n"+
         "key = 6.626e-34\n"+
         "\n"+
-        "[float.underscores]\n"+
+        "[<th>float.underscores</th>]\n"+
         "\n"+
         "key1 = 9_224_617.445_991_228_313\n"+
         "key2 = 1e1_000\n"+
@@ -203,7 +209,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "\n"+
         "# Booleans are just the tokens you're used to. Always lowercase.\n"+
         "\n"+
-        "[boolean]\n"+
+        "[<th>boolean</th>]\n"+
         "\n"+
         "True = true\n"+
         "False = false\n"+
@@ -214,7 +220,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "\n"+
         "# Datetimes are RFC 3339 dates.\n"+
         "\n"+
-        "[datetime]\n"+
+        "[<th>datetime</th>]\n"+
         "\n"+
         "key1 = 1979-05-27T07:32:00Z\n"+
         "key2 = 1979-05-27T00:32:00-07:00\n"+
@@ -227,7 +233,7 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# Arrays are square brackets with other primitives inside. Whitespace is\n"+
         "# ignored. Elements are separated by commas. Data types may not be mixed.\n"+
         "\n"+
-        "[array]\n"+
+        "[<th>array</th>]\n"+
         "\n"+
         "key1 = [ 1, 2, 3 ]\n"+
         "key2 = [ \"red\", \"yellow\", \"green\" ]\n"+
@@ -254,14 +260,14 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "# with the same double bracketed name will be an element in the array. The\n"+
         "# tables are inserted in the order encountered.\n"+
         "\n"+
-        "[[products]]\n"+
+        "[[<tah>products</tah>]]\n"+
         "\n"+
         "name = \"Hammer\"\n"+
         "sku = 738594937\n"+
         "\n"+
-        "[[products]]\n"+
+        "[[<tah>products</tah>]]\n"+
         "\n"+
-        "[[products]]\n"+
+        "[[<tah>products</tah>]]\n"+
         "\n"+
         "name = \"Nail\"\n"+
         "sku = 284758393\n"+
@@ -270,30 +276,30 @@ public class TomlColorSettingsPage implements ColorSettingsPage {
         "\n"+
         "# You can create nested arrays of tables as well.\n"+
         "\n"+
-        "[[fruit]]\n"+
+        "[[<tah>fruit</tah>]]\n"+
         "  name = \"apple\"\n"+
         "\n"+
-        "  [fruit.physical]\n"+
+        "  [<th>fruit.physical</th>]\n"+
         "    color = \"red\"\n"+
         "    shape = \"round\"\n"+
         "\n"+
-        "  [[fruit.variety]]\n"+
+        "  [[<tah>fruit.variety</tah>]]\n"+
         "    name = \"red delicious\"\n"+
         "\n"+
-        "  [[fruit.variety]]\n"+
+        "  [[<tah>fruit.variety</tah>]]\n"+
         "    name = \"granny smith\"\n"+
         "\n"+
-        "[[fruit]]\n"+
+        "[[<tah>fruit</tah>]]\n"+
         "  name = \"banana\"\n"+
         "\n"+
-        "  [[fruit.variety]]\n"+
+        "  [[<tah>fruit.variety</tah>]]\n"+
         "    name = \"plantain\"";
     }
 
     @Nullable
     @Override
     public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-        return null;
+        return ATTRIBUTES_KEY_MAP;
     }
 
     @NotNull
