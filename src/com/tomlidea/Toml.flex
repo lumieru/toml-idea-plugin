@@ -66,5 +66,5 @@ KEY=[0-9_\-a-zA-Z]+
 
 <SQMLSTRING> {
   '''                   { yybegin(YYINITIAL); return TomlTypes.SQMSTRQUOTER; }
-  ([\r\n]|.)            { return TomlTypes.SQMCHAR; }
+  ([\r\n]|.)[^']*       { return TomlTypes.SQMCHAR; }
 }
