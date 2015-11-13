@@ -9,10 +9,12 @@ import com.tomlidea.psi.impl.*;
 public interface TomlTypes {
 
   IElementType ARRAY = new TomlElementType("ARRAY");
+  IElementType DATES = new TomlElementType("DATES");
   IElementType EXPRESSION = new TomlElementType("EXPRESSION");
   IElementType INLINE_TABLE = new TomlElementType("INLINE_TABLE");
   IElementType KEY = new TomlElementType("KEY");
   IElementType KEY_VALUE = new TomlElementType("KEY_VALUE");
+  IElementType NUMBERS = new TomlElementType("NUMBERS");
   IElementType PATH = new TomlElementType("PATH");
   IElementType SQMCHARSTR = new TomlElementType("SQMCHARSTR");
   IElementType STRING = new TomlElementType("STRING");
@@ -28,10 +30,12 @@ public interface TomlTypes {
   IElementType COMMA = new TomlTokenType(",");
   IElementType COMMENT = new TomlTokenType("comment");
   IElementType DATE = new TomlTokenType("date");
+  IElementType DAY = new TomlTokenType("day");
   IElementType DOT = new TomlTokenType(".");
   IElementType DQMSTRING = new TomlTokenType("dqmstring");
   IElementType DQSSTRING = new TomlTokenType("dqsstring");
   IElementType EQ = new TomlTokenType("=");
+  IElementType INTEGER = new TomlTokenType("integer");
   IElementType LBRACE = new TomlTokenType("{");
   IElementType LBRACKET = new TomlTokenType("[");
   IElementType NUMBER = new TomlTokenType("number");
@@ -48,6 +52,9 @@ public interface TomlTypes {
        if (type == ARRAY) {
         return new TomlArrayImpl(node);
       }
+      else if (type == DATES) {
+        return new TomlDatesImpl(node);
+      }
       else if (type == EXPRESSION) {
         return new TomlExpressionImpl(node);
       }
@@ -59,6 +66,9 @@ public interface TomlTypes {
       }
       else if (type == KEY_VALUE) {
         return new TomlKeyValueImpl(node);
+      }
+      else if (type == NUMBERS) {
+        return new TomlNumbersImpl(node);
       }
       else if (type == PATH) {
         return new TomlPathImpl(node);

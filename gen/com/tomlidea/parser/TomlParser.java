@@ -26,6 +26,9 @@ public class TomlParser implements PsiParser, LightPsiParser {
     if (t == ARRAY) {
       r = array(b, 0);
     }
+    else if (t == DATES) {
+      r = dates(b, 0);
+    }
     else if (t == EXPRESSION) {
       r = expression(b, 0);
     }
@@ -37,6 +40,9 @@ public class TomlParser implements PsiParser, LightPsiParser {
     }
     else if (t == KEY_VALUE) {
       r = key_value(b, 0);
+    }
+    else if (t == NUMBERS) {
+      r = numbers(b, 0);
     }
     else if (t == PATH) {
       r = path(b, 0);
@@ -139,6 +145,19 @@ public class TomlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // date | day
+  public static boolean dates(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dates")) return false;
+    if (!nextTokenIs(b, "<dates>", DATE, DAY)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, "<dates>");
+    r = consumeToken(b, DATE);
+    if (!r) r = consumeToken(b, DAY);
+    exit_section_(b, l, m, DATES, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // key_value | table | table_array
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
@@ -215,14 +234,15 @@ public class TomlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // barekey | dqsstring
+  // barekey | dqsstring | integer | day
   public static boolean key(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "key")) return false;
-    if (!nextTokenIs(b, "<key>", BAREKEY, DQSSTRING)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<key>");
     r = consumeToken(b, BAREKEY);
     if (!r) r = consumeToken(b, DQSSTRING);
+    if (!r) r = consumeToken(b, INTEGER);
+    if (!r) r = consumeToken(b, DAY);
     exit_section_(b, l, m, KEY, r, false, null);
     return r;
   }
@@ -231,7 +251,6 @@ public class TomlParser implements PsiParser, LightPsiParser {
   // key '=' value
   public static boolean key_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "key_value")) return false;
-    if (!nextTokenIs(b, "<key value>", BAREKEY, DQSSTRING)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<key value>");
     r = key(b, l + 1);
@@ -242,10 +261,22 @@ public class TomlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // number | integer
+  public static boolean numbers(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "numbers")) return false;
+    if (!nextTokenIs(b, "<numbers>", INTEGER, NUMBER)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, "<numbers>");
+    r = consumeToken(b, NUMBER);
+    if (!r) r = consumeToken(b, INTEGER);
+    exit_section_(b, l, m, NUMBERS, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // key ('.' key) *
   public static boolean path(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "path")) return false;
-    if (!nextTokenIs(b, "<path>", BAREKEY, DQSSTRING)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<path>");
     r = key(b, l + 1);
@@ -403,15 +434,15 @@ public class TomlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // string | number | boolean | date | array | inline_table
+  // string | numbers | boolean | dates | array | inline_table
   public static boolean value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<value>");
     r = string(b, l + 1);
-    if (!r) r = consumeToken(b, NUMBER);
+    if (!r) r = numbers(b, l + 1);
     if (!r) r = consumeToken(b, BOOLEAN);
-    if (!r) r = consumeToken(b, DATE);
+    if (!r) r = dates(b, l + 1);
     if (!r) r = array(b, l + 1);
     if (!r) r = inline_table(b, l + 1);
     exit_section_(b, l, m, VALUE, r, false, null);

@@ -72,9 +72,11 @@ public class TomlSyntaxHighlighter extends SyntaxHighlighterBase {
             return STRING_KEYS;
         } else if (tokenType.equals(TomlTypes.BOOLEAN)) {
             return BOOLEAN_KEYS;
-        } else if (tokenType.equals(TomlTypes.DATE)) {
+        } else if (tokenType.equals(TomlTypes.DATE) ||
+                   tokenType.equals(TomlTypes.DAY)) {
             return DATE_KEYS;
-        } else if (tokenType.equals(TomlTypes.NUMBER)) {
+        } else if (tokenType.equals(TomlTypes.NUMBER) ||
+                   tokenType.equals(TomlTypes.INTEGER)) {
             return NUMBER_KEYS;
         } else if (tokenType.equals(TomlTypes.BAREKEY)) {
             return KEY_KEYS;

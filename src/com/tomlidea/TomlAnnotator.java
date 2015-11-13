@@ -23,7 +23,8 @@ public class TomlAnnotator implements Annotator {
             setHighlighting(((TomlTableArrayHeader)o).getPath(), holder, TomlSyntaxHighlighter.TABLE_ARRAY_HEADER, "table array header");
         } else if (o instanceof TomlKey) {
             TomlKey key = (TomlKey)o;
-            if(key.getDqsstring() != null && key.getParent() instanceof TomlKeyValue) {
+            //If the key is not a bare key, then it needs to be highlighted with KEY color
+            if(key.getBarekey() == null && key.getParent() instanceof TomlKeyValue) {
                 setHighlighting(o, holder, TomlSyntaxHighlighter.KEY, "key");
             }
         }

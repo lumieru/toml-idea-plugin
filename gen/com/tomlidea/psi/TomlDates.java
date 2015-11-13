@@ -5,18 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TomlKey extends PsiElement {
+public interface TomlDates extends PsiElement {
 
   @Nullable
-  PsiElement getBarekey();
+  PsiElement getDate();
 
   @Nullable
   PsiElement getDay();
-
-  @Nullable
-  PsiElement getDqsstring();
-
-  @Nullable
-  PsiElement getInteger();
 
 }

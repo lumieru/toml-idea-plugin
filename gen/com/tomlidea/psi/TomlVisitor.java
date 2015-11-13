@@ -11,6 +11,10 @@ public class TomlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDates(@NotNull TomlDates o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpression(@NotNull TomlExpression o) {
     visitPsiElement(o);
   }
@@ -24,6 +28,10 @@ public class TomlVisitor extends PsiElementVisitor {
   }
 
   public void visitKeyValue(@NotNull TomlKeyValue o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNumbers(@NotNull TomlNumbers o) {
     visitPsiElement(o);
   }
 

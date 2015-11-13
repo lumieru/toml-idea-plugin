@@ -11,39 +11,27 @@ import static com.tomlidea.psi.TomlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.tomlidea.psi.*;
 
-public class TomlKeyImpl extends ASTWrapperPsiElement implements TomlKey {
+public class TomlNumbersImpl extends ASTWrapperPsiElement implements TomlNumbers {
 
-  public TomlKeyImpl(ASTNode node) {
+  public TomlNumbersImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof TomlVisitor) ((TomlVisitor)visitor).visitKey(this);
+    if (visitor instanceof TomlVisitor) ((TomlVisitor)visitor).visitNumbers(this);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getBarekey() {
-    return findChildByType(BAREKEY);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getDay() {
-    return findChildByType(DAY);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getDqsstring() {
-    return findChildByType(DQSSTRING);
   }
 
   @Override
   @Nullable
   public PsiElement getInteger() {
     return findChildByType(INTEGER);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getNumber() {
+    return findChildByType(NUMBER);
   }
 
 }

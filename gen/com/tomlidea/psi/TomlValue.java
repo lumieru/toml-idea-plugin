@@ -11,18 +11,18 @@ public interface TomlValue extends PsiElement {
   TomlArray getArray();
 
   @Nullable
+  TomlDates getDates();
+
+  @Nullable
   TomlInlineTable getInlineTable();
+
+  @Nullable
+  TomlNumbers getNumbers();
 
   @Nullable
   TomlString getString();
 
   @Nullable
   PsiElement getBoolean();
-
-  @Nullable
-  PsiElement getDate();
-
-  @Nullable
-  PsiElement getNumber();
 
 }

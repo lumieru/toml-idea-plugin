@@ -25,8 +25,12 @@ STRING=(\"([^\"\\\r\n]|\\.)*\")
 //MULTILINE_STRING_SQ=('''([\r\n]|.)*(''')?)
 STRING_SQ=('[^\'\r\n]*')
 
+//since integers can be bare keys, so need to capture it first
+INTEGER=-?[0-9](_?[0-9])*
 NUMBER=[-+]?[0-9](_?[0-9])*(\.[0-9](_?[0-9])*)?([eE][-+]?[0-9](_?[0-9])*)?
 
+//since yyyy-mm-dd can be bare keys, so need to capture it first
+DAY=[0-9]{4}-[0-9]{2}-[0-9]{2}
 DATE=[0-9]{4}-[0-9]{2}-[0-9]{2}([Tt][0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?)?([Zz]|[+-][0-9]{2}:[0-9]{2})?
 
 BOOLEAN=true|false
@@ -47,7 +51,10 @@ KEY=[0-9_\-a-zA-Z]+
  // {MULTILINE_STRING_SQ} { return TomlTypes.SQMSTRING; }
   {STRING_SQ}           { return TomlTypes.SQSSTRING; }
 
+  {INTEGER}             { return TomlTypes.INTEGER; }
   {NUMBER}              { return TomlTypes.NUMBER; }
+
+  {DAY}                 { return TomlTypes.DAY; }
   {DATE}                { return TomlTypes.DATE; }
 
   {BOOLEAN}             { return TomlTypes.BOOLEAN; }

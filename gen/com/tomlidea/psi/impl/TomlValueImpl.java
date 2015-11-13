@@ -30,8 +30,20 @@ public class TomlValueImpl extends ASTWrapperPsiElement implements TomlValue {
 
   @Override
   @Nullable
+  public TomlDates getDates() {
+    return findChildByClass(TomlDates.class);
+  }
+
+  @Override
+  @Nullable
   public TomlInlineTable getInlineTable() {
     return findChildByClass(TomlInlineTable.class);
+  }
+
+  @Override
+  @Nullable
+  public TomlNumbers getNumbers() {
+    return findChildByClass(TomlNumbers.class);
   }
 
   @Override
@@ -44,18 +56,6 @@ public class TomlValueImpl extends ASTWrapperPsiElement implements TomlValue {
   @Nullable
   public PsiElement getBoolean() {
     return findChildByType(BOOLEAN);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getDate() {
-    return findChildByType(DATE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getNumber() {
-    return findChildByType(NUMBER);
   }
 
 }
