@@ -1,7 +1,7 @@
-<idea-plugin version="2">
+<idea-plugin>
   <id>com.sensedevil.ideaplugin.toml</id>
   <name>TOML</name>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <vendor email="lumieru@gmail.com" url="https://github.com/lumieru/toml-idea-plugin"/>
 
   <description><![CDATA[
@@ -17,15 +17,14 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
+
   <depends>com.intellij.modules.lang</depends>
-  -->
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
     <fileTypeFactory implementation="com.tomlidea.TomlFileTypeFactory"/>
     <lang.parserDefinition language="toml" implementationClass="com.tomlidea.TomlParserDefinition"/>
-    <lang.syntaxHighlighterFactory key="toml" implementationClass="com.tomlidea.TomlSyntaxHighlighterFactory"/>
+    <lang.syntaxHighlighterFactory key="toml" language="toml" implementationClass="com.tomlidea.TomlSyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="com.tomlidea.TomlColorSettingsPage"/>
     <annotator language="toml" implementationClass="com.tomlidea.TomlAnnotator"/>
     <lang.psiStructureViewFactory language="toml" implementationClass="com.tomlidea.structureview.TomlStructureViewFactory"/>
